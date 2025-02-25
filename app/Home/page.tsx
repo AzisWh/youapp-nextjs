@@ -12,6 +12,38 @@ interface tagsProps {
   interest: string[];
 }
 
+interface zodiacType {
+  name: string;
+  start: string;
+  end: string;
+}
+
+const zodiacData: zodiacType[] = [
+  { name: 'Aries', start: '03-21', end: '04-19' },
+  { name: 'Taurus', start: '04-20', end: '05-20' },
+  { name: 'Gemini', start: '05-21', end: '06-21' },
+  { name: 'Cancer', start: '06-22', end: '07-22' },
+  { name: 'Leo', start: '07-23', end: '08-22' },
+  { name: 'Virgo', start: '08-23', end: '09-22' },
+  { name: 'Libra', start: '09-23', end: '10-23' },
+  { name: 'Scorpio', start: '10-24', end: '11-21' },
+  { name: 'Sagittarius', start: '11-22', end: '12-21' },
+  { name: 'Capricorn', start: '12-22', end: '01-19' },
+  { name: 'Aquarius', start: '01-20', end: '02-18' },
+  { name: 'Pisces', start: '02-19', end: '03-20' },
+];
+
+const Horoscope = (birthday: string) => {
+  if (!birthday) return '';
+  const monthDay = birthday.slice(5);
+
+  const zodiac = zodiacData.find(
+    ({ start, end }) => monthDay >= start && monthDay <= end
+  );
+
+  return zodiac ? zodiac.name : 'Capricorn';
+};
+
 const Home = () => {
   const router = useRouter();
   // dummy
@@ -23,13 +55,6 @@ const Home = () => {
       router.push('/login');
     }
   }, [router]);
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    Swal.fire('Success', 'yey logout');
-    router.push('/login');
-  };
-
   const [isEditAbout, setIsEditAbout] = useState(false);
   const [profile, setProfile] = useState({
     displayName: '',
@@ -54,8 +79,21 @@ const Home = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+    const updatedProfile = { ...tempProfile, [name]: value };
+    if (name === 'birthday') {
+      updatedProfile.horoscope = Horoscope(value);
+    }
     setTempProfile({ ...tempProfile, [name]: value });
   };
+
+  useEffect(() => {
+    if (tempProfile.birthday) {
+      setTempProfile((prevProfile) => ({
+        ...prevProfile,
+        horoscope: Horoscope(prevProfile.birthday),
+      }));
+    }
+  }, [tempProfile.birthday]);
 
   const handleSaveAbout = () => {
     setProfile(tempProfile);
@@ -179,7 +217,7 @@ const Home = () => {
                     placeholder="Gender"
                   />
                   <input
-                    type="text"
+                    type="date"
                     name="birthday"
                     value={tempProfile.birthday}
                     onChange={handleChange}
@@ -190,17 +228,9 @@ const Home = () => {
                     type="text"
                     name="horoscope"
                     value={tempProfile.horoscope}
-                    onChange={handleChange}
+                    readOnly
                     className="w-full p-2 rounded-md bg-[#0D1D23] text-white"
                     placeholder="Horoscope"
-                  />
-                  <input
-                    type="text"
-                    name="zodiac"
-                    value={tempProfile.zodiac}
-                    onChange={handleChange}
-                    className="w-full p-2 rounded-md bg-[#0D1D23] text-white"
-                    placeholder="Zodiac"
                   />
                   <input
                     type="text"
@@ -230,12 +260,8 @@ const Home = () => {
                     {profile.birthday}
                   </p>
                   <p>
-                    <span className="text-gray-400">Horoscope:</span>{' '}
-                    {profile.horoscope}
-                  </p>
-                  <p>
                     <span className="text-gray-400">Zodiac:</span>{' '}
-                    {profile.zodiac}
+                    {profile.horoscope}
                   </p>
                   <p>
                     <span className="text-gray-400">Height:</span>{' '}
