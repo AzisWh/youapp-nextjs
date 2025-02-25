@@ -54,69 +54,71 @@ const Register = () => {
     }
   };
   return (
-    <div className="">
-      <div className="flex flex-row gap-2">
-        <Image
-          src={arrow}
-          alt="backarrow"
-          width={7}
-          height={14}
-          onClick={handleBack}
-        />
-        <p className="text-white font-bold text-[14px]">Back</p>
-      </div>
-      <div className="flex-1 pt-10 ">
-        <h1 className="text-white font-bold text-[24px]">Register</h1>
-        <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-          <InputForm
-            name="email"
-            placeholder="Enter Email"
-            onChange={handleChange}
-            value={form.email}
-            required
+    <div className="md:flex md:justify-center md:items-center">
+      <div className=" md:w-full md:max-w-md lg:max-w-lg lg:bg-gray-800 md:p-8 md:rounded-lg shadow-md lg:border lg:border-gray-700">
+        <div className="flex flex-row gap-2 items-center">
+          <Image
+            src={arrow}
+            alt="backarrow"
+            width={7}
+            height={14}
+            onClick={handleBack}
           />
+          <p className="text-white font-bold text-[14px]">Back</p>
+        </div>
+        <div className="flex-1 pt-10 ">
+          <h1 className="text-white font-bold text-[24px]">Register</h1>
+          <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+            <InputForm
+              name="email"
+              placeholder="Enter Email"
+              onChange={handleChange}
+              value={form.email}
+              required
+            />
 
-          <InputForm
-            name="username"
-            placeholder="Enter Username"
-            onChange={handleChange}
-            value={form.username}
-            required
-          />
+            <InputForm
+              name="username"
+              placeholder="Enter Username"
+              onChange={handleChange}
+              value={form.username}
+              required
+            />
 
-          <InputForm
-            name="password"
-            type="password"
-            placeholder="Create Password"
-            showToggleIcon
-            onChange={handleChange}
-            value={form.password}
-            required
-          />
+            <InputForm
+              name="password"
+              type="password"
+              placeholder="Create Password"
+              showToggleIcon
+              onChange={handleChange}
+              value={form.password}
+              required
+            />
 
-          <InputForm
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirm Password"
-            showToggleIcon
-            onChange={handleChange}
-            value={form.confirmPassword}
-            required
-          />
-          <Button
-            type="submit"
-            variant="primary"
-            onClick={() => router.push('/Home')}>
-            Register
-          </Button>
-        </form>
-        <div className="text-center mt-5">
-          <p className="">
-            Have an Account?{' '}
-            <Link href={'/login'}>
-              <span className="text-[#F3EDA6] underline">Login Here</span>
-            </Link>
-          </p>
+            <InputForm
+              name="confirmPassword"
+              type="password"
+              placeholder="Confirm Password"
+              showToggleIcon
+              onChange={handleChange}
+              value={form.confirmPassword}
+              required
+            />
+            <Button
+              type="submit"
+              variant="primary"
+              onClick={() => router.push('/Home')}>
+              Register
+            </Button>
+          </form>
+          <div className="text-center mt-5">
+            <p className="">
+              Have an Account?{' '}
+              <Link href={'/login'}>
+                <span className="text-[#F3EDA6] underline">Login Here</span>
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -12,10 +12,11 @@ import Swal from 'sweetalert2';
 
 const Interest = () => {
   const router = useRouter();
+  // dummy
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const fakeToken = localStorage.getItem('token');
 
-    if (!token) {
+    if (!fakeToken) {
       Swal.fire('Error', 'belum login');
       router.push('/login');
     }
@@ -46,37 +47,39 @@ const Interest = () => {
   };
 
   return (
-    <div>
-      <div className="relative flex items-center gap-2 mb-2">
-        <div className="flex items-center gap-2">
-          <Image
-            src={arrow}
-            alt="backarrow"
-            width={7}
-            height={14}
-            onClick={handleBack}
-            className="cursor-pointer"
-          />
-          <p className="text-white font-bold text-[14px]">Back</p>
+    <div className="sm:flex sm:justify-center sm:items-center">
+      <div className="md:w-full  md:max-w-4xl md:bg-gray-800 md:p-8 md:rounded-lg shadow-md md:border md:border-gray-700">
+        <div className="relative flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-2">
+            <Image
+              src={arrow}
+              alt="backarrow"
+              width={7}
+              height={14}
+              onClick={handleBack}
+              className="cursor-pointer"
+            />
+            <p className="text-white font-bold text-[14px]">Back</p>
+          </div>
+
+          <p
+            className="absolute right-0 cursor-pointer font-bold text-[14px] text-transparent bg-clip-text bg-gradient-to-r from-[#ABFFFD] via-[#4599DB] to-[#AADAFF]"
+            onClick={localSubmit}>
+            Save
+          </p>
         </div>
 
-        <p
-          className="absolute right-0 cursor-pointer font-bold text-[14px] text-transparent bg-clip-text bg-gradient-to-r from-[#ABFFFD] via-[#4599DB] to-[#AADAFF]"
-          onClick={localSubmit}>
-          Save
-        </p>
-      </div>
-
-      <div className="flex-1 pt-10 px-4">
-        <h1 className="font-bold text-[24px] text-white">
-          What interests you?
-        </h1>
-        <TagField
-          tags={tags}
-          addTag={handleAddTag}
-          removeTag={handleRemoveTag}
-          maxTags={MAX_TAGS}
-        />
+        <div className="flex-1 pt-10 px-4">
+          <h1 className="font-bold text-[24px] text-white">
+            What interests you?
+          </h1>
+          <TagField
+            tags={tags}
+            addTag={handleAddTag}
+            removeTag={handleRemoveTag}
+            maxTags={MAX_TAGS}
+          />
+        </div>
       </div>
     </div>
   );
