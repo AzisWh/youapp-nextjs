@@ -22,4 +22,4 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Notes
 
-The system uses a dummy authentication mechanism since the actual server is currently experiencing CORS issues.
+Every Features in the system uses a dummy  mechanism since the actual server is currently experiencing CORS issues.
